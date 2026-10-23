@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="theme-color" content="#f6f7f5">
+  <meta name="description" content="A thoughtfully simple workspace for planning your day and getting things done.">
+  <title>Daylist — your productivity workspace</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="theme.css">
+</head>
+<body>
+  <div class="app" id="app">
+    <aside class="sidebar" id="sidebar">
+      <a class="brand" href="#dashboard" aria-label="Daylist dashboard"><span class="brand-icon">d</span><span>daylist</span></a>
+      <button class="workspace"><span class="workspace-avatar">D</span><span class="workspace-copy"><b>My workspace</b><small>Personal plan</small></span><span class="chevron">⌄</span></button>
+      <nav class="primary-nav" aria-label="Main navigation">
+        <p class="nav-label">WORKSPACE</p>
+        <button class="nav-item active" data-view="dashboard"><span class="nav-icon">▦</span>Overview</button>
+        <button class="nav-item" data-view="myday"><span class="nav-icon">☼</span>My day <span class="nav-count" id="today-count"></span></button>
+        <button class="nav-item" data-view="upcoming"><span class="nav-icon">▤</span>Upcoming</button>
+        <button class="nav-item" data-view="all"><span class="nav-icon">☷</span>All tasks</button>
+        <p class="nav-label nav-spaced">SMART LISTS</p>
+        <button class="nav-item" data-view="important"><span class="nav-icon star-icon">☆</span>Important</button>
+        <button class="nav-item" data-view="completed"><span class="nav-icon">✓</span>Completed</button>
+        <button class="nav-item" data-view="overdue"><span class="nav-icon">◷</span>Overdue</button>
+        <button class="nav-item" data-view="archived"><span class="nav-icon">▣</span>Archived</button>
+        <button class="nav-item" data-view="calendar"><span class="nav-icon">▦</span>Calendar</button>
+        <button class="nav-item" data-view="kanban"><span class="nav-icon">☷</span>Board</button>
+        <p class="nav-label nav-spaced">YOUR LISTS</p>
+        <button class="nav-item category-nav" data-category="Personal"><span class="category-dot dot-personal"></span>Personal</button>
+        <button class="nav-item category-nav" data-category="Work"><span class="category-dot dot-work"></span>Work</button>
+        <button class="nav-item category-nav" data-category="Other"><span class="category-dot dot-other"></span>Other</button>
+      </nav>
+      <div class="sidebar-bottom"><button class="nav-item" id="export-button"><span class="nav-icon">⇩</span>Export tasks</button><div class="profile"><span class="profile-avatar">D</span><span><b>My account</b><small>Local workspace</small></span><span class="profile-more">···</span></div></div>
+    </aside>
+
+    <main class="main-area">
+      <header class="topbar"><button class="mobile-menu" id="mobile-menu" aria-label="Toggle navigation">☰</button><div class="breadcrumbs"><span>Workspace</span><span class="crumb-divider">/</span><b id="breadcrumb-current">Overview</b></div><div class="top-actions"><label class="global-search"><span>⌕</span><input id="search-input" type="search" placeholder="Search tasks..." aria-label="Search tasks"><kbd>⌘ K</kbd></label><button class="icon-button theme-toggle" id="theme-toggle" aria-label="Toggle dark mode" title="Toggle dark mode">☾</button><button class="avatar-button" aria-label="Account">D</button></div></header>
+      <div class="content" id="content"></div>
+    </main>
+  </div>
+
+  <dialog class="task-dialog" id="task-dialog">
+    <form id="task-form" method="dialog">
+      <div class="dialog-heading"><div><span class="dialog-kicker" id="dialog-kicker">NEW TASK</span><h2 id="dialog-title">Create a task</h2></div><button class="icon-button dialog-close" type="button" id="close-dialog" aria-label="Close">×</button></div>
+      <input type="hidden" id="task-id">
+      <label class="field-label" for="task-title">Task name</label><input class="form-control" id="task-title" maxlength="140" placeholder="e.g. Prepare project update" required>
+      <label class="field-label" for="task-description">Description <span>Optional</span></label><textarea class="form-control description-input" id="task-description" maxlength="600" placeholder="Add a few details..."></textarea>
+      <div class="form-grid"><div><label class="field-label" for="task-due">Due date</label><input class="form-control" id="task-due" type="date"></div><div><label class="field-label" for="task-priority">Priority</label><select class="form-control" id="task-priority"><option value="medium">Medium</option><option value="urgent">Urgent</option><option value="high">High</option><option value="low">Low</option></select></div></div>
+      <div class="form-grid"><div><label class="field-label" for="task-status">Status</label><select class="form-control" id="task-status"><option value="todo">To do</option><option value="progress">In progress</option><option value="hold">On hold</option><option value="completed">Completed</option></select></div><div><label class="field-label" for="task-category">List</label><select class="form-control" id="task-category"><option>Personal</option><option>Work</option><option>Other</option></select></div></div>
+      <label class="favorite-check"><input id="task-important" type="checkbox"><span>Mark as important</span></label>
+      <div class="dialog-actions"><button class="button secondary" type="button" id="cancel-dialog">Cancel</button><button class="button primary" type="submit" id="save-task">Create task</button></div>
+    </form>
+  </dialog>
+  <div class="toast-region" id="toast-region" aria-live="polite"></div>
+  <script src="app.js"></script>
+</body>
+</html>
